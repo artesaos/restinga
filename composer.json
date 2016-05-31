@@ -1,0 +1,26 @@
+{
+    "name": "artesaos/restinga",
+    "description": "Restinga is a framework that allows you to easily consume Rest APIs",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Diego Hernandes",
+            "email": "diego@codecasts.com.br"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "mashape/unirest-php": "~3.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Artesaos\\Restinga\\": "src/"
+        }
+    }
+}

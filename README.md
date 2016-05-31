@@ -3,10 +3,10 @@ Restinga a is a ActiveResource Framework. What it means? It allows you to consum
 
 [![Latest Stable Version](https://poser.pugx.org/artesaos/restinga/v/stable.svg)](https://packagist.org/packages/artesaos/restinga) [![Total Downloads](https://poser.pugx.org/artesaos/restinga/downloads.svg)](https://packagist.org/packages/artesaos/restinga) [![Latest Unstable Version](https://poser.pugx.org/artesaos/restinga/v/unstable.svg)](https://packagist.org/packages/artesaos/restinga) [![License](https://poser.pugx.org/artesaos/restinga/license.svg)](https://packagist.org/packages/artesaos/restinga) [![Monthly Downloads](https://poser.pugx.org/artesaos/restinga/d/monthly.png)](https://packagist.org/packages/artesaos/restinga)
 
-###What it is?
-Restinga is tool to help you building REST Clients for your chosen API's.
+## Documentation
+[Dig into the Documentation](https://github.com/artesaos/restinga/wiki)
 
-###Why?
+###Why it was built?
 Well, sometimes the PHP Clients that companies provides sucks, you know it. Sometimes they are even more hard to use than CURLing the API itself.
 We've built this package to help you when that happens.
 
@@ -102,7 +102,9 @@ $saved = $droplet->save();
 if ($saved) {
     echo $droplet->id; // 4242424
 } else {
-    var_dump($droplet->getErrors()->all());
+    foreach ($droplet->errors->all() as $code => $error) {
+        echo $code . ": " . $error . "\n";
+    }
 }
 
 ```

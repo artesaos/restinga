@@ -78,9 +78,19 @@ abstract class Resource implements ResourceContract
     }
 
     /**
+     * @return array
+     */
+    public static function all()
+    {
+        $calledResourceName = get_called_class();
+        $instance = new $calledResourceName;
+        return $instance->getAll();
+    }
+
+    /**
      * @return array|bool
      */
-    public function all()
+    public function getAll()
     {
         if ($this->makeRequest('get')) {
             $resources = $this->factoryCollection($this->response->raw_body);
@@ -102,10 +112,21 @@ abstract class Resource implements ResourceContract
 
     /**
      * @param string $identifier
+     * @return \Artesaos\Restinga\Contracts\Data\Resource
+     */
+    public static function find($identifier = '')
+    {
+        $calledResourceName = get_called_class();
+        $instance = new $calledResourceName;
+        return $instance->doFind($identifier);
+    }
+
+    /**
+     * @param string $identifier
      *
      * @return $this|bool
      */
-    public function find($identifier = '')
+    public function doFind($identifier = '')
     {
         $this->setIdentifier($identifier);
         if ($this->makeRequest('get', true)) {
@@ -154,14 +175,15 @@ abstract class Resource implements ResourceContract
     }
 
     /**
-     * @param string $method
-     * @param bool   $identified
-     *
+     * @param $method
+     * @param bool $identified
+     * @param null $append
+     * @param null $customBody
      * @return bool
      */
-    protected function makeRequest($method, $identified = false)
+    protected function makeRequest($method, $identified = false, $append = null, $customBody = null)
     {
-        $this->request = new Request($this, $identified);
+        $this->request = new Request($this, $identified, $append, $customBody);
         $this->response = $this->request->$method();
 
         return $this->checkResponse();

@@ -45,8 +45,10 @@ trait ReceiveJson
      */
     protected function _receive_json_fill($data)
     {
-        foreach ($data as $key => $value) {
-            $this->attributes[$key] = $value;
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $this->attributes[$key] = $value;
+            }
         }
     }
 

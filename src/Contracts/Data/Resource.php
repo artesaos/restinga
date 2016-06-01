@@ -25,14 +25,26 @@ interface Resource extends ManipulateAttributes,
     /**
      * @return array
      */
-    public function all();
+    public static function all();
+
+    /**
+     * @return array
+     */
+    public function getAll();
 
     /**
      * @param string $identifier
      *
      * @return resource
      */
-    public function find($identifier);
+    public function doFind($identifier);
+
+    /**
+     * @param string $identifier
+     *
+     * @return resource
+     */
+    public static function find($identifier);
 
     /**
      * @return bool
@@ -58,4 +70,9 @@ interface Resource extends ManipulateAttributes,
      * @return $this|bool
      */
     public function update();
+
+    /**
+     * @return array
+     */
+    public function toArray();
 }

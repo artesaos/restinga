@@ -67,4 +67,9 @@ trait ManipulateAttributes
     {
         return $this->attributes;
     }
+    
+    public function toArray()
+    {
+        return $this->attributes;
+    }
 }

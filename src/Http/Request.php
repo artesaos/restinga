@@ -33,14 +33,23 @@ class Request implements RequestContract
      */
     protected $identified = false;
 
+    protected $append;
+
+    protected $customBody;
+
     /**
-     * @param \Artesaos\Restinga\Contracts\Data\Resource $resource
-     * @param bool                                        $identified
+     * Request constructor.
+     * @param Resource $resource
+     * @param bool $identified
+     * @param null $append
+     * @param null $customBody
      */
-    public function __construct(Resource $resource, $identified = false)
+    public function __construct(Resource $resource, $identified = false, $append = null, $customBody = null)
     {
         $this->resource = $resource;
         $this->identified = $identified;
+        $this->append = $append;
+        $this->customBody = $customBody;
         $this->descriptor = $this->resource->getDescriptor();
         $this->request = new Unirest\Request();
         $this->request = $this->descriptor->authorization()->setupRequest($this->request);
@@ -67,6 +76,10 @@ class Request implements RequestContract
                 $url = $current->getResourceName().'/'.$current->getIdentifier().'/'.$url;
                 $current = $current->getParentResource();
             }
+        }
+
+        if ($this->append) {
+            $url = $url . $this->append;
         }
 
         return $this->descriptor->prefix().'/'.$url;
@@ -112,7 +125,9 @@ class Request implements RequestContract
      */
     protected function send($method = 'get', $hasBody = false)
     {
-        if ($hasBody) {
+        if ($this->customBody) {
+            $response = $this->request->$method($this->url(), $this->headers, $this->customBody);
+        } elseif ($hasBody) {
             $response = $this->request->$method($this->url(), $this->headers, $this->resource->encode());
         } else {
             $response = $this->request->$method($this->url(), $this->headers);

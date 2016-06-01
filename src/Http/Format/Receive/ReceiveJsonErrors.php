@@ -20,6 +20,11 @@ trait ReceiveJsonErrors
         $errors = json_decode($data, true);
         if (isset($this->errors_root) && $this->errors_root) {
             $errors = $errors[$this->errors_root];
+            foreach($errors as $k => $v) {
+                if (is_array($v)) {
+                    $errors[$k] = implode(' - ', $v);
+                }
+            }
         }
 
         return new ErrorBag($code, $errors, $data);

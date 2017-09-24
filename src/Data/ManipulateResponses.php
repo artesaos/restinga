@@ -2,6 +2,8 @@
 
 namespace Artesaos\Restinga\Data;
 
+use Artesaos\Restinga\Http\ErrorBag;
+
 /**
  * Trait ManipulateResponses.
  */
@@ -39,6 +41,6 @@ trait ManipulateResponses
      */
     public function getErrors()
     {
-        return $this->errors;
+        return $this->errors ? $this->errors : new ErrorBag($this->response->code);
     }
 }

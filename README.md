@@ -6,7 +6,7 @@ Restinga a is a ActiveResource Framework. What it means? It allows you to consum
 ## Documentation
 [Dig into the Documentation](https://github.com/artesaos/restinga/wiki)
 
-## #Why it was built?
+### Why it was built?
 Well, sometimes the PHP Clients that companies provides sucks, you know it. Sometimes they are even more hard to use than CURLing the API itself.
 We've built this package to help you when that happens.
 
